@@ -11,6 +11,9 @@
   </head>
 
   <body>
-    <%= yield %>
+    <div class="container">
+      <%= link_to "All Products", products_path %>
+      <%= yield %>
+    </div>
   </body>
 </html>
