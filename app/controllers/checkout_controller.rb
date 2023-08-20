@@ -10,7 +10,8 @@ class CheckoutController < ApplicationController
             :name => product.name,
             :reference => "#{product.id}__#{rand.to_s[2..10]}",
             :amount => product.price * 100,
-            :email => "tolasekevin@gmail.com"
+            :email => "tolasekevin@gmail.com",
+            callback_url: "http://127.0.0.1:3000/"
             )
         auth_url = @result['data']['authorization_url']
         respond_to do |format|
