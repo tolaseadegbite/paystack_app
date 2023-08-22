@@ -13,4 +13,7 @@ Rails.application.routes.draw do
   delete 'products/remove_from_cart/:id', to: "products#remove_from_cart", as: "remove_from_cart"
 
   get 'cart', to: "application#load_cart", as: "cart"
+
+  get '/success', to: "checkout#success", as: "checkout_success"
+  get '/failure', to: "checkout#failure", as: "checkout_failure"
 end

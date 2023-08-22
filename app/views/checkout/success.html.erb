@@ -1,0 +1,18 @@
+<div class="container">
+    <h1>Payment successfully made</h1>
+    
+    <% if params[:reference].present? %>
+    <div>
+        <% paystack = Paystack.new(Rails.application.credentials[:paystack][:PAYSTACK_PUBLIC_KEY], Rails.application.credentials[:paystack][:PAYSTACK_PRIVATE_KEY]) %>
+
+        <%# transaction_id = 3046924522 %>
+        <% transaction_reference = params[:reference] %>
+        <%# transactions = PaystackTransactions.new(paystack) %>
+        <% result = PaystackTransactions.verify(paystack, transaction_reference) %>
+
+        <%= result['data'] %>
+        <hr>
+        <%= result['data']['metadata']['custom_fields']['value'.to_i] %>
+    </div>
+    <% end %>
+</div>
