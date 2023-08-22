@@ -15,3 +15,11 @@
 </div>
 
 <%= link_to "New product", new_product_path %>
+
+<div>
+  <% paystack = Paystack.new(Rails.application.credentials[:paystack][:PAYSTACK_PUBLIC_KEY], Rails.application.credentials[:paystack][:PAYSTACK_PRIVATE_KEY]) %>
+
+  <% transaction_reference = "1__602165350" %>
+	<% result = PaystackTransactions.verify(paystack, transaction_reference) %>
+	<%= result['data'] %>
+</div>
