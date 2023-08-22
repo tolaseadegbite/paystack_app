@@ -6,9 +6,6 @@
   <% @products.each do |product| %>
     <%= render product %>
     <p>
-      <%= button_to "Buy now", checkout_create_path, params: {id: product.id}, class: "btn btn-primary btn-sm", data: { turbo: "false" } %>
-    </p>
-    <p>
       <%= link_to "Show this product", product %>
     </p>
   <% end %>

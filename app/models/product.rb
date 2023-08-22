@@ -4,4 +4,10 @@ class Product < ApplicationRecord
     def to_s
         name
     end
+
+    def to_builder
+        Jbuilder.new do |product|
+            product.price
+        end
+    end
 end
