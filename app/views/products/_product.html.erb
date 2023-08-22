@@ -14,4 +14,14 @@
     <%= product.sales_count %>
   </p>
 
+  <% if @cart.include?(product) %>
+    <%= link_to "Remove from cart", remove_from_cart_path(product), data: {"turbo-method": :delete} %>
+  <% else %>
+    <%= link_to "Add to cart", add_to_cart_path(product), data: {"turbo-method": :post} %>
+  <% end %>
+  <p>
+    <strong>Sales count:</strong>
+    <%= product.sales_count %>
+  </p>
+
 </div>

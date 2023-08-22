@@ -21,6 +21,10 @@
         <%= link_to "Sign up", new_user_registration_path %>
       <% end %>
 
+      <% @cart.each do |product| %>
+        <%= product.name %>
+      <% end %>
+
       <hr>
 
       <p class="notice m-0"><%= notice %></p>
