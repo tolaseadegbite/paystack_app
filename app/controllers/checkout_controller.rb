@@ -37,6 +37,18 @@ class CheckoutController < ApplicationController
 
     def success
         session[:cart] = [] # empty array cart = empty array
-        # render 'checkout/success'
+        
+        paystack = Paystack.new(Rails.application.credentials[:paystack][:PAYSTACK_PUBLIC_KEY], Rails.application.credentials[:paystack][:PAYSTACK_PRIVATE_KEY])
+
+        transaction_reference = params[:reference]
+
+        result = PaystackTransactions.verify(paystack, transaction_reference)
+
+        result['data']['metadata']['custom_fields'].each do |field|
+            field['value'].each do |name|
+                product = Product.find_by(name: name)
+                product.increment!(:sales_count)
+            end
+        end
     end
 end

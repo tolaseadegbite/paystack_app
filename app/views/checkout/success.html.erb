@@ -5,14 +5,19 @@
     <div>
         <% paystack = Paystack.new(Rails.application.credentials[:paystack][:PAYSTACK_PUBLIC_KEY], Rails.application.credentials[:paystack][:PAYSTACK_PRIVATE_KEY]) %>
 
-        <%# transaction_id = 3046924522 %>
         <% transaction_reference = params[:reference] %>
-        <%# transactions = PaystackTransactions.new(paystack) %>
-        <% result = PaystackTransactions.verify(paystack, transaction_reference) %>
+        <% @result = PaystackTransactions.verify(paystack, transaction_reference) %>
 
-        <%= result['data'] %>
+        <pre><%= JSON.pretty_generate(@result['data']) %></pre>
+
         <hr>
-        <%= result['data']['metadata']['custom_fields']['value'.to_i] %>
+
+        <% @result['data']['metadata']['custom_fields'].each do |field| %>
+            <% field['value'].each do |name| %>
+                <% product = Product.find_by(name: name) %>
+                <p><%= product.name %> **** <%= product.sales_count %></p>
+            <% end %>
+        <% end %>
     </div>
     <% end %>
 </div>

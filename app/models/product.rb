@@ -7,6 +7,7 @@ class Product < ApplicationRecord
 
     def to_builder
         Jbuilder.new do |product|
+            product.name
             product.price
         end
     end
