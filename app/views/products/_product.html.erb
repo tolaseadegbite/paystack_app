@@ -6,12 +6,17 @@
 
   <p>
     <strong>Price:</strong>
-    <%= number_to_currency(product.price, unit: "₦") %>
+    <%= number_to_currency(product.unit_price, unit: "₦") %>
   </p>
 
   <p>
     <strong>Sales count:</strong>
     <%= product.sales_count %>
+  </p>
+
+  <p>
+    <strong>Code:</strong>
+    <%= product.code %>
   </p>
 
   <% if @cart.include?(product) %>

@@ -1,19 +1,17 @@
 class CheckoutController < ApplicationController
     
     def create
-        total_price = @cart.sum(&:price)
+        total_amount = @cart.sum(&:total_price)
         cart_items = @cart.pluck(:name)
         reference = "#{@cart.pluck(:id).join().to_i}_#{rand.to_s[2..10]}"
         callback_url = checkout_success_url
         cancel_url = checkout_failure_url
 
-        @paystack = Paystack.new(Rails.application.credentials[:paystack][:PAYSTACK_PUBLIC_KEY],Rails.application.credentials[:paystack][:PAYSTACK_PRIVATE_KEY])
-
         @payment = PaystackTransactions.new(@paystack)
 
         @result = @payment.initializeTransaction(
             :reference => reference,
-            :amount => total_price * 100,
+            :amount => total_amount * 100,
             :email => current_user.email,
             callback_url: callback_url,
             channels: ["card"],
