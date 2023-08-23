@@ -1,5 +1,20 @@
 <div class="container">
     <h1>Payment successfully made</h1>
+
+    <p><b>Transaction status</b>: <%= @transaction_result['data']['status'] %></p>
+    <p><b>Amount paid</b>: <%= number_to_currency((@transaction_result['data']['amount'])/100, unit: '') %> <%= @transaction_result['data']['currency'] %></p>
+
+    <h2>You purchased</h2>
+
+    <hr>
+
+    <% @cart_items = @transaction_result['data']['metadata']['custom_fields'].each do |field| %>
+        <ol>
+            <% field['value'].each do |name| %>
+                <li><%= name %></li>
+            <% end %>
+        </ol>
+    <% end %>
     
     <% if params[:reference].present? %>
     <div>
@@ -15,7 +30,7 @@
         <% @result['data']['metadata']['custom_fields'].each do |field| %>
             <% field['value'].each do |name| %>
                 <% product = Product.find_by(name: name) %>
-                <p><%= product.name %> **** <%= product.sales_count %></p>
+                <p><%= product.name %> **** <%= product.sales_count %> *** <%= product.price %></p>
             <% end %>
         <% end %>
     </div>
